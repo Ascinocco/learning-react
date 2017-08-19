@@ -6,12 +6,14 @@ import { render } from 'react-dom';
 import css from './styles/style.styl';
 
 // my components
-import Main from './components/Main';
+import App from './components/App';
 import Single from './components/Single';
 import PhotoGrid from './components/PhotoGrid';
 
 // react router deps
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Provider } from 'react-redux';
+import store, { history } from './store';
 
 // this is more or less reacts equiv to vue js router
 // everything is pretty self explanitory
@@ -21,12 +23,14 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 // to load by default when loading the root route
 // perhaps a better name might be DefaultComponent
 const router = (
-    <Router history={ browserHistory }>
-        <Route path="/" component={ Main }>
-            <IndexRoute component={ PhotoGrid }></IndexRoute>
-            <Route path="/view/:postId" component={ Single }></Route>
-        </Route>
-    </Router>
+    <Provider store={ store }>
+        <Router history={ history }>
+            <Route path="/" component={ App }>
+                <IndexRoute component={ PhotoGrid }></IndexRoute>
+                <Route path="/view/:postId" component={ Single }></Route>
+            </Route>
+        </Router>
+    </Provider>
 );
 
 // pass the router here instead of a component because we want to 
