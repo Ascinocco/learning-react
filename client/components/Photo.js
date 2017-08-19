@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 
+// keep in mind when we bind the current state to the incrememt function down below
+// we are allowing for likes to be updated onClick instead of on page load
 const Photo = React.createClass({
     render() {
         const { post, i, comments } = this.props;
@@ -21,7 +23,7 @@ const Photo = React.createClass({
                 <figcaption>
                     <p>{post.caption}</p>
                     <div className="control-buttons">
-                        <button className="likes">&hearts; {post.likes}</button>
+                        <button onClick={this.props.increment.bind(null, i)} className="likes">&hearts; {post.likes}</button>
                         <Link to={`/view/${post.code}`} className="button">
                             <span className="comment-count">
                                 <span className="speech-bubble"></span>
